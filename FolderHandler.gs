@@ -1,13 +1,12 @@
 /**
- * Search in a parend folder if a folder exists
- *
- * @param {string} id of parent folder
- * @param {string} name of the folder
- * @return {string} id of the folder
- */
+* Search in a parend folder if a folder exists
+*
+* @param {string} id of parent folder
+* @param {string} name of the folder
+* @return {string} id of the folder
+*/
 
 function createFolder(folderID, folderName){
-  //console.log("folderID = " + folderID );
   
   var parentFolder = DriveApp.getFolderById(folderID);
   var subFolders = parentFolder.getFolders();
@@ -23,14 +22,12 @@ function createFolder(folderID, folderName){
       doesntExists = false;
       console.log("The folder " + folderName +"exist in the parent folder with id " + folderID);
       newFolder = folder;
-      
       return newFolder.getId();
     };
   };
   
   //if not exists create new one and return id
   if(doesntExists == true){
-    //If the file doesn't exists
     newFolder = parentFolder.createFolder(folderName);
     console.log("The folder " + folderName +"are now created in a folder with id " + folderID);
     return newFolder.getId();
@@ -40,31 +37,31 @@ function createFolder(folderID, folderName){
 //============================================================================================================
 
 /**
- * Function to check if a file exist in a folder, if not exist 
- * create new one with a given ID
- *
- * @param {string} id of the file
- * @param {string} id of the folder
- * @param {string} id of the template file
- * @return {string} id of the file created
- */
+* Function to check if a file exist in a folder, if not exist 
+* create new one with a given ID
+*
+* @param {string} id of the file
+* @param {string} id of the folder
+* @param {string} id of the template file
+* @return {string} id of the file created
+*/
 
-function checkFile2(filename, folderID, templateid){
-    var filedacopiare = DriveApp.getFileById(templateid);
-    var folder = DriveApp.getFolderById(folderID);
-    var file   = folder.getFilesByName(filename);
-    
-    if(!file.hasNext()){ 
-      var files = filedacopiare.makeCopy(filename, folder);
-      files =  folder.getFilesByName(filename).next().getId();
-      console.log("File created")
-      return files;
-    }
-    else{
-      files = file.next().getId();
-      console.log("File found");
-      return files;
-    }
+function createByTemplate(filename, folderID, templateid){
+  
+  var filedacopiare = DriveApp.getFileById(templateid);
+  var folder = DriveApp.getFolderById(folderID);
+  var file   = folder.getFilesByName(filename);
+  
+  if(!file.hasNext()){ 
+    var files = filedacopiare.makeCopy(filename, folder);
+    files =  folder.getFilesByName(filename).next().getId();
+    console.log("File created")
+    return files;
+  }else{
+    files = file.next().getId();
+    console.log("File found");
+    return files;
+  }
 }
 
 //============================================================================================================
