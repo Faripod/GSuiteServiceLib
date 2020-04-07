@@ -1,19 +1,10 @@
 {
   "timeZone": "Europe/Paris",
   "dependencies": {
-    "libraries": [{
-      "userSymbol": "NFService",
-      "libraryId": "1_JwVmSPWcnUEVNk50y7qLRcVKqQEyyEncOub285JaUwb-1KT1m_PUaj1",
-      "version": "8",
-      "developmentMode": true
-    }]
   },
   "exceptionLogging": "STACKDRIVER",
-  "runtimeVersion": "V8",
-  "sheets": {
-    "macros": [{
-      "menuName": "dnousn",
-      "functionName": "dnousn"
-    }]
-  }
+  "executionApi": {
+    "access": "DOMAIN"
+  },
+  "runtimeVersion": "V8"
 }
