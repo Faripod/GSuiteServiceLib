@@ -50,11 +50,44 @@ function copyPaste(source, destination, operations) {
   } else {
     
     // Clearing operations with deleterow and insert row
-    SpreadsheetApp.openById(destination.id).getSheetByName(destination.tabName)
-    .deleteRows(source.startCellRow, source.rowNum);
-    SpreadsheetApp.openById(destination.id).getSheetByName(destination.tabName)
-    .insertRows(source.startCellRow, source.rowNum);
+    SpreadsheetApp.openById(source.id).getSheetByName(source.tabName)
+    .getRange(source.startCellRow, source.startCellCol, source.rowNum, source.colNum).clearContent();
+    SpreadsheetApp.flush();
     
     console.log('Cutting and paste data succesfully');
   }
 }
+
+//============================================================================================================
+
+/**
+* Library for drag and fill formulas or value in a cell
+* @param {Object} Object containing the parameters of the cell to be drag
+* id = 'sheet identifier'
+* tabName = 'name of the tab'
+* targetCellRow = row number of the cell with data
+* targetCellCol = column number of the cell with data
+* rowNum = number of row to fill
+* CowNum = number of column to fill
+* example:
+* var source = {id : '1VFbs3j3121ddl2ee3e3HVpd8picdu1WEWEWkQ32S_8nxfh4',
+*               tabName: 'Registro',
+*               startCellRow: 9,
+*               startCellCol: 2,
+*               rowNum: 2,
+*               colNum: 3};
+*
+* @return {void}
+*/ 
+
+function dragAndFill(source){
+  
+  // Autofill
+  SpreadsheetApp.openById(source.id).getSheetByName(source.tabName)
+  .getRange(source.startCellRow, source.startCellCol)
+  .autoFill(SpreadsheetApp.openById(source.id).getSheetByName(source.tabName)
+            .getRange(source.startCellRow, source.startCellCol, source.rowNum, source.colNum),
+            SpreadsheetApp.AutoFillSeries.DEFAULT_SERIES);
+}
+
+//============================================================================================================
